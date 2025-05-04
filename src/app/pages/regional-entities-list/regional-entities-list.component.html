@@ -1,0 +1,21 @@
+<div>
+  <h2>Regional Entities: States & Provinces</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Capital</th>
+      <th>Population</th>
+      <th>Km<sup>2</sup></th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let re of regionalEntities">
+        <td>{{re.name}}</td>
+        <td>{{re.capital}}</td>
+        <td>{{re.population | number: '1.0'}}</td>
+        <td>{{re.squareKilometers | number: '1.0'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
