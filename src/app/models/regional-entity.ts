@@ -1,9 +1,9 @@
 export interface RegionalEntity {
-  id: number;
-  name: string;
-  capital: string;
-  population: number;
-  squareKilometers: number;
-  hiAltitude: number;
-  loAltitude: number;
+  id?: number;
+  name?: string | null;
+  capital?: string | null;
+  population?: number | null;
+  squareKilometers?: number | null;
+  hiAltitude?: number | null;
+  loAltitude?: number | null;
 }

@@ -1,21 +1,40 @@
 <div>
-  <h2>Regional Entities: States & Provinces</h2>
-  <table>
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Capital</th>
-      <th>Population</th>
-      <th>Km<sup>2</sup></th>
-    </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let re of regionalEntities">
-        <td>{{re.name}}</td>
-        <td>{{re.capital}}</td>
-        <td>{{re.population | number: '1.0'}}</td>
-        <td>{{re.squareKilometers | number: '1.0'}}</td>
+  <h2 class="text-center">Regional Entities</h2>
+  <div class="container">
+    <table class="table table-striped m-auto">
+      <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col">Capital</th>
+        <th scope="col">Population</th>
+        <th scope="col">Km<sup>2</sup></th>
+        <th scope="col">Low Elevation (km)</th>
+        <th scope="col">High Elevation (km)</th>
       </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @if (reloadableRegionalEntities$ | async; as regionalEntities) {
+          @for (r of regionalEntities; track r.name; let i = $index) {
+            <tr>
+              <td class="deleter" (click)="delete(r.id)">🇽</td>
+              <td>{{ r.name }}</td>
+              <td>{{ r.capital }}</td>
+              <td>{{ r.population | number: '1.0' }}</td>
+              <td>{{ r.squareKilometers | number: '1.0' }}</td>
+              <td>{{ r.hiAltitude | number: '1.0' }}</td>
+              <td>{{ r.loAltitude | number: '1.0' }}</td>
+            </tr>
+          } @empty {
+            <p>No results yet!</p>
+          }
+        }
+      </tbody>
+    </table>
+
+    <div class="float-end d-grid gap-2 d-md-flex justify-content-md-end mt-5">
+      <button type="button" class="btn btn-primary" (click)="openNewEntityEditor()">Add Regional Entity</button>
+    </div>
+
+  </div>
 </div>

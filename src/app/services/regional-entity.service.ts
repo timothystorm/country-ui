@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {RegionalEntity} from '../models/regional-entity';
@@ -7,14 +7,19 @@ import {RegionalEntity} from '../models/regional-entity';
   providedIn: 'root'
 })
 export class RegionalEntityService {
-  private apiUrl = 'http://localhost:8080/api/regionalentities';
-
-  constructor(
-    private http: HttpClient,
-  ) { }
+  private apiUrl = '/api/regionalentities';
+  private http: HttpClient = inject(HttpClient);
 
   getRegionalEntities(): Observable<RegionalEntity[]> {
     return this.http.get<RegionalEntity[]>(this.apiUrl);
+  }
+
+  saveRegionalEntity(entity: RegionalEntity): Observable<RegionalEntity> {
+    return this.http.post<RegionalEntity>(this.apiUrl, entity);
+  }
+
+  deleteRegionalEntity(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
   getRegionalEntityById(id: number): Observable<RegionalEntity> {
