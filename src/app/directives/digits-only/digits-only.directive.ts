@@ -14,7 +14,7 @@ export class DigitsOnlyDirective implements AfterViewInit {
     this.ngControl.valueChanges
       ?.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((value: string) => {
-        const initialValue = value && value.replace(/[^0-9]/g, '');
+        const initialValue = value && value.replace(/[^0-9.-]/g, '');
         if (value !== initialValue) {
           this.ngControl.control?.setValue(initialValue, {emitEvent: false});
         }
