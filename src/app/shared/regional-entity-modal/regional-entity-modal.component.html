@@ -2,7 +2,8 @@
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
 </div>
 <div class="modal-body">
-  <form [formGroup]="form" class="row g-3" (submit)="submit()">
+  <form [formGroup]="form" class="row g-3" (submit)="submit()" autocomplete="off">
+    <input type="hidden" [formControl]="idControl">
     <div class="col-12">
       <label for="name" class="form-label" #focusInput>Entity Name</label>
       <input [formControl]="nameControl" type="text" class="form-control" id="name" placeholder="State or Province">
@@ -14,20 +15,20 @@
 
     <div class="col-md-6">
       <label for="population" class="form-label">Population</label>
-      <input [formControl]="populationControl" type="number" class="form-control" id="population">
+      <input [formControl]="populationControl" type="text" class="form-control" id="population" digitsOnly>
     </div>
     <div class="col-md-6">
       <label for="area" class="form-label">Area (Km<sup>2</sup>)</label>
-      <input [formControl]="areaControl" type="number" class="form-control" id="area">
+      <input [formControl]="areaControl" type="text" class="form-control" id="area" digitsOnly>
     </div>
 
     <div class="col-md-6">
       <label for="hi-elevation" class="form-label">Elevation (hi)</label>
-      <input [formControl]="hiAltitude" type="number" class="form-control" id="hi-elevation">
+      <input [formControl]="hiAltitude" type="text" class="form-control" id="hi-elevation" digitsOnly>
     </div>
     <div class="col-md-6">
       <label for="lo-elevation" class="form-label">Elevation (lo)</label>
-      <input [formControl]="loAltitude" type="number" class="form-control" id="lo-elevation">
+      <input [formControl]="loAltitude" type="text" class="form-control" id="lo-elevation" digitsOnly>
     </div>
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-5">

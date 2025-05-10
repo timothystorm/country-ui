@@ -1,0 +1,9 @@
+name: countries_ui
+services:
+  app:
+    container_name: dashboard
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"

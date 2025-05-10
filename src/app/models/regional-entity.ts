@@ -1,5 +1,5 @@
 export interface RegionalEntity {
-  id?: number;
+  id?: number | null;
   name?: string | null;
   capital?: string | null;
   population?: number | null;

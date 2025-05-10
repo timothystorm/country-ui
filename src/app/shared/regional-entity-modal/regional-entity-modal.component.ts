@@ -3,12 +3,14 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {RegionalEntity} from '../../models/regional-entity';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {RegionalEntityService} from '../../services/regional-entity.service';
+import {DigitsOnlyDirective} from '../../directives/digits-only/digits-only.directive';
 
 @Component({
   standalone: true,
-  selector: 'app-regional-entity-form',
+  selector: 'app-regional-entity-modal',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DigitsOnlyDirective
   ],
   templateUrl: './regional-entity-modal.component.html'
 })
@@ -20,6 +22,7 @@ export class RegionalEntityModalComponent implements OnInit, AfterViewInit {
   @Input() regionalEntity?: RegionalEntity;
   @ViewChild('focusInput') input?: ElementRef;
 
+  idControl = new FormControl<number | null>(null);
   nameControl = new FormControl<string>('', [Validators.required]);
   capitalControl = new FormControl('', [Validators.required]);
   populationControl = new FormControl<number | null>(null, [Validators.required]);
@@ -27,6 +30,7 @@ export class RegionalEntityModalComponent implements OnInit, AfterViewInit {
   hiAltitude = new FormControl<number | null>(null, [Validators.required]);
   loAltitude = new FormControl<number | null>(null, [Validators.required]);
   form = new FormGroup({
+    id: this.idControl,
     name: this.nameControl,
     capital: this.capitalControl,
     population: this.populationControl,

@@ -10,11 +10,12 @@ export class RegionalEntityService {
   private apiUrl = '/api/regionalentities';
   private http: HttpClient = inject(HttpClient);
 
-  getRegionalEntities(): Observable<RegionalEntity[]> {
+  readRegionalEntities(): Observable<RegionalEntity[]> {
     return this.http.get<RegionalEntity[]>(this.apiUrl);
   }
 
   saveRegionalEntity(entity: RegionalEntity): Observable<RegionalEntity> {
+    if (entity.id) return this.http.put(`${this.apiUrl}/${entity.id}`, entity);
     return this.http.post<RegionalEntity>(this.apiUrl, entity);
   }
 

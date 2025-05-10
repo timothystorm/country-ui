@@ -4,30 +4,40 @@
     <table class="table table-striped m-auto">
       <thead>
       <tr>
-        <th scope="col"></th>
+        <th scope="col"><!--add--></th>
+        <th scope="col"><!--edit--></th>
         <th scope="col">Name</th>
         <th scope="col">Capital</th>
         <th scope="col">Population</th>
-        <th scope="col">Km<sup>2</sup></th>
+        <th scope="col">Area (km<sup>2</sup>)</th>
         <th scope="col">Low Elevation (km)</th>
         <th scope="col">High Elevation (km)</th>
       </tr>
       </thead>
       <tbody>
         @if (reloadableRegionalEntities$ | async; as regionalEntities) {
-          @for (r of regionalEntities; track r.name; let i = $index) {
+          @for (regionalEntity of regionalEntities; track regionalEntity.name; let i = $index) {
             <tr>
-              <td class="deleter" (click)="delete(r.id)">🇽</td>
-              <td>{{ r.name }}</td>
-              <td>{{ r.capital }}</td>
-              <td>{{ r.population | number: '1.0' }}</td>
-              <td>{{ r.squareKilometers | number: '1.0' }}</td>
-              <td>{{ r.hiAltitude | number: '1.0' }}</td>
-              <td>{{ r.loAltitude | number: '1.0' }}</td>
+              <td *ngIf="regionalEntity.id && regionalEntity.name" class="deleter"
+                  (click)="delete(regionalEntity.id, regionalEntity.name)">🚫
+              </td>
+              <td class="editor" (click)="edit(regionalEntity)">✏️</td>
+              <td>{{ regionalEntity.name }}</td>
+              <td>{{ regionalEntity.capital }}</td>
+              <td>{{ regionalEntity.population | number: '1.0' }}</td>
+              <td>{{ regionalEntity.squareKilometers | number: '1.0' }}</td>
+              <td>{{ regionalEntity.loAltitude | number: '1.0' }}</td>
+              <td>{{ regionalEntity.hiAltitude | number: '1.0' }}</td>
             </tr>
           } @empty {
             <p>No results yet!</p>
           }
+        } @else if (serviceError) {
+          <tr>
+            <td colspan="7">
+              <div class="alert alert-danger" role="alert">{{ serviceError }}</div>
+            </td>
+          </tr>
         }
       </tbody>
     </table>
