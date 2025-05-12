@@ -22,3 +22,9 @@ th {
   font-size: 16pt;
   cursor: pointer;
 }
+
+button {
+  position: fixed;
+  bottom: 4vh;
+  right: 12vh;
+}
