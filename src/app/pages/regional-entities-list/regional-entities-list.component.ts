@@ -23,10 +23,9 @@ export class RegionalEntitiesListComponent implements OnInit {
   private entityService = inject(RegionalEntityService);
   private refresh$ = new Subject<void>();
   serviceError: string | null = null;
-  regionalEntities$ = this.entityService.readRegionalEntities();
   reloadableRegionalEntities$ = this.refresh$.pipe(
     startWith(null),
-    switchMap(() => this.regionalEntities$),
+    switchMap(() => this.entityService.readRegionalEntities()),
     catchError(err => {
       this.serviceError = err?.message ?? err;
       return throwError(() => err);

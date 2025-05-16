@@ -1,23 +1,14 @@
-import {AfterViewInit, DestroyRef, Directive, inject} from '@angular/core';
-import {NgControl} from '@angular/forms';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {Directive, ElementRef, HostListener, inject} from '@angular/core';
 
 @Directive({
   selector: 'input[digitsOnly]',
-  standalone: true,
+  standalone: true
 })
-export class DigitsOnlyDirective implements AfterViewInit {
-  private ngControl = inject(NgControl);
-  private destroyRef = inject(DestroyRef);
+export class DigitsOnlyDirective {
+  private element: ElementRef | null = inject(ElementRef, {optional: true});
 
-  ngAfterViewInit(): void {
-    this.ngControl.valueChanges
-      ?.pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((value: string) => {
-        const initialValue = value && value.replace(/[^0-9.-]/g, '');
-        if (value !== initialValue) {
-          this.ngControl.control?.setValue(initialValue, {emitEvent: false});
-        }
-      });
+  @HostListener('input', ['$event.target.value'])
+  onInput(value: string): void {
+    if (this.element) this.element.nativeElement.value = value.replace(/[^0-9.-]/g, '');
   }
 }

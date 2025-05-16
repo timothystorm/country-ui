@@ -7,23 +7,19 @@ import {RegionalEntity} from '../models/regional-entity';
   providedIn: 'root'
 })
 export class RegionalEntityService {
-  private apiUrl = '/api/regionalentities';
+  private static apiUrl = '/api/regionalentities';
   private http: HttpClient = inject(HttpClient);
 
   readRegionalEntities(): Observable<RegionalEntity[]> {
-    return this.http.get<RegionalEntity[]>(this.apiUrl);
+    return this.http.get<RegionalEntity[]>(RegionalEntityService.apiUrl);
   }
 
   saveRegionalEntity(entity: RegionalEntity): Observable<RegionalEntity> {
-    if (entity.id) return this.http.put(`${this.apiUrl}/${entity.id}`, entity);
-    return this.http.post<RegionalEntity>(this.apiUrl, entity);
+    if (entity.id) return this.http.put(`${RegionalEntityService.apiUrl}/${entity.id}`, entity);
+    return this.http.post<RegionalEntity>(RegionalEntityService.apiUrl, entity);
   }
 
   deleteRegionalEntity(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
-
-  getRegionalEntityById(id: number): Observable<RegionalEntity> {
-    return this.http.get<RegionalEntity>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${RegionalEntityService.apiUrl}/${id}`);
   }
 }
