@@ -1,5 +1,5 @@
 name: Test and Build Angular UI
-
+run-name: Main Build - ${{ github.actor }} 🚀
 on:
   push:
     branches: [ main ]
