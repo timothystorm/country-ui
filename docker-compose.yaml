@@ -1,7 +1,7 @@
-name: country
+name: country-ui
 services:
   angular:
-    container_name: country-ui
+    container_name: angular
     build:
       context: .
       dockerfile: Dockerfile
