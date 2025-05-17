@@ -1,9 +1,16 @@
-name: countries_ui
+name: country
 services:
-  app:
-    container_name: dashboard
+  angular-ui:
+    container_name: country-ui
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "4200:80"
+      - "80:80"
+
+# allows network communication across different containers
+# the other container (spring-boot) must also implement
+# the same network bridge
+#networks:
+#  country-network:
+#    external: true

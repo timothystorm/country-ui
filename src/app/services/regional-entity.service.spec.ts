@@ -1,6 +1,7 @@
 import {RegionalEntityService} from './regional-entity.service';
 import {createHttpFactory, HttpMethod, SpectatorHttp} from '@ngneat/spectator';
 import {RegionalEntity} from '../models/regional-entity';
+import {environment} from '../../environments/environment';
 
 describe('RegionalEntityService', () => {
   let spectator: SpectatorHttp<RegionalEntityService>;
@@ -12,7 +13,7 @@ describe('RegionalEntityService', () => {
 
   it('should GET regional entities', () => {
     spectator.service.readRegionalEntities().subscribe();
-    spectator.expectOne('/api/regionalentities', HttpMethod.GET);
+    spectator.expectOne(environment.apiUrl, HttpMethod.GET);
   });
 
   it('should POST regional entity', () => {
@@ -26,13 +27,13 @@ describe('RegionalEntityService', () => {
     };
 
     spectator.service.saveRegionalEntity(re).subscribe();
-    const req = spectator.expectOne('/api/regionalentities', HttpMethod.POST);
+    const req = spectator.expectOne(environment.apiUrl, HttpMethod.POST);
     expect(req.request.body).toEqual(re);
   });
 
   it('should DELETE regional entity', () => {
     const id = 100;
     spectator.service.deleteRegionalEntity(100).subscribe();
-    spectator.expectOne(`/api/regionalentities/${id}`, HttpMethod.DELETE);
+    spectator.expectOne(`${environment.apiUrl}/${id}`, HttpMethod.DELETE);
   });
 });

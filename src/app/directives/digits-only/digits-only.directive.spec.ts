@@ -1,43 +1,38 @@
 import {DigitsOnlyDirective} from './digits-only.directive';
-import {createDirectiveFactory, SpectatorDirective} from '@ngneat/spectator';
+import {createComponentFactory, Spectator} from '@ngneat/spectator';
 import {FormsModule} from '@angular/forms';
+import {Component} from '@angular/core';
+
+@Component({
+  imports: [
+    FormsModule,
+    DigitsOnlyDirective
+  ],
+  template: `<input digitsOnly [(ngModel)]="value">`
+})
+class TestHostComponent {
+  value: string = '';
+}
 
 describe('DigitsOnlyDirective', () => {
-  let spectator: SpectatorDirective<DigitsOnlyDirective>;
-  const createDirective = createDirectiveFactory({
-    directive: DigitsOnlyDirective,
-    imports: [FormsModule]
+  let input: HTMLInputElement;
+  let spectator: Spectator<TestHostComponent>;
+  const createComponent = createComponentFactory(TestHostComponent);
+
+  beforeEach(() => {
+    spectator = createComponent();
+    input = spectator.query('input')!;
   });
 
-  beforeEach(() => spectator = createDirective(`<input digitsOnly />`));
+  it('should create', () => expect(spectator.component).toBeTruthy());
 
-  it('should create', () => expect(spectator.directive).toBeTruthy());
-
-  ['abc123xyz', '!1@2#3', '   123   ', '1,23'].forEach((value) => {
+  ['-abc1,23xyz', '!-1@2#.3', ' -  12.3   ', '-1,2.3'].forEach((value) => {
     it(`should only allow digits for "${value}"`, () => {
-      spectator.typeInElement(value);
-      expect(spectator.element).toHaveValue('123');
-    });
-  });
+      input.value = value;
+      spectator.dispatchFakeEvent(input, 'input');
 
-  ['-abc123xyz', '-!1@2#3', ' -  123   ', '-1,23'].forEach((value) => {
-    it(`should only allow digits for negative "${value}"`, () => {
-      spectator.typeInElement(value);
-      expect(spectator.element).toHaveValue('-123');
-    });
-  });
-
-  ['abc1.23xyz', '!1.@2#3', '   1.23   ', '1.23'].forEach((value) => {
-    it(`should only allow digits for decimal "${value}"`, () => {
-      spectator.typeInElement(value);
-      expect(spectator.element).toHaveValue('1.23');
-    });
-  });
-
-  ['a-bc1.23xyz', '-!1.@2#3', ' -  1.23   ', '-1.23'].forEach((value) => {
-    it(`should only allow digits for negative decimal "${value}"`, () => {
-      spectator.typeInElement(value);
-      expect(spectator.element).toHaveValue('-1.23');
+      expect(spectator.component.value).toBe('123');
+      expect(input.value).toBe('123');
     });
   });
 });

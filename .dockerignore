@@ -1,5 +1,7 @@
+.git
 dist
 node_modules
 scripts
-.git
 .gitignore
+Dockerfile
+docker-compose.yaml

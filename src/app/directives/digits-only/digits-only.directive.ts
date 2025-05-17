@@ -1,14 +1,20 @@
-import {Directive, ElementRef, HostListener, inject} from '@angular/core';
+import {Directive, ElementRef, HostListener} from '@angular/core';
+import {NgControl} from '@angular/forms';
 
 @Directive({
   selector: 'input[digitsOnly]',
   standalone: true
 })
 export class DigitsOnlyDirective {
-  private element: ElementRef | null = inject(ElementRef, {optional: true});
+  constructor(private el: ElementRef, private ngControl: NgControl) {
+  }
 
-  @HostListener('input', ['$event.target.value'])
-  onInput(value: string): void {
-    if (this.element) this.element.nativeElement.value = value.replace(/[^0-9.-]/g, '');
+  @HostListener('input', ['$event']) onInputChange(event: any) {
+    const initialValue = this.el.nativeElement.value;
+    const newValue = initialValue.replace(/[^0-9]*/g, '');
+    this.ngControl.control?.setValue(newValue, {emitEvent: false});
+    if (initialValue !== this.el.nativeElement.value) {
+      event.stopPropagation();
+    }
   }
 }
