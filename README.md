@@ -1,43 +1,88 @@
-# CountriesUi
+# 🌐 Country UI
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.10.
+A frontend Angular application for interacting with the Country API. This UI is containerized and served via NGINX, and designed for seamless deployment to cloud environments like AWS EC2 and Azure Virtual Machines.
 
-## Running COUNTRY-UI
+---
 
-## Start dev server
+## ✨ Features
 
-```bash
-npm start
-```
+- Built with Angular and TypeScript
+- Serves a static Single Page Application (SPA) via NGINX
+- Consumes the Spring Boot Country API backend
+- Fully Dockerized for local development and cloud deployment
+- Environment-based base API URL configuration
+- Reverse proxies API calls for CORS security
 
-## Building
+---
 
-To build the project run:
+## 🛠️ Tech Stack
 
-```bash
-npm run build
-```
+| Layer      | Tech               |
+|------------|--------------------|
+| Framework  | Angular 17+        |
+| Web Server | NGINX              |
+| Container  | Docker             |
+| Deployment | AWS EC2 / Azure VM |
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+🐳 Running as a Dockerized NGINX App
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+1. Build the Angular App
 
 ```bash
-ng e2e
+npm run build -- --configuration=production
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+This compiles the app into the dist/ directory.
 
-## Additional Resources
+2. Build and Run the Docker Container
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+docker build -t country-ui .
+docker run -d -p 80:80 country-ui
+```
+
+> The app is served via NGINX on port 80 inside the container.
+
+---
+
+## 🌍 Cloud Deployment
+
+This project is designed for on-demand deployment to cloud VMs with Docker:
+
+✅ Compatible With:
+
+- AWS EC2 (Ubuntu + Docker)
+- Azure Virtual Machine (Ubuntu + Docker)
+
+🔐 Secure Configuration
+
+- No credentials are stored in the repo
+- Base API URL is configured in environment.prod.ts and bundled at build time
+
+--- 
+
+## 💡 Skills Demonstrated
+
+- Angular architecture and TypeScript usage
+- Docker multi-stage build for optimized production images
+- Static site hosting via NGINX
+- Cloud deployment readiness for multiple platforms
+- Environment-based configuration and secure API interaction
+
+---
+
+## 🔭 Future Enhancements
+
+- Add automated deployment via GitHub Actions
+- Add integration testing
+- Support environment variables at runtime with JS-based dynamic config injection
+- HTTPS via Let’s Encrypt on the VM
+
+---
+
+## 🧠 Why This Project?
+
+This frontend demonstrates frontend-backend integration in a realistic, cloud-native
+architecture — showcasing frontend development, containerization, and deployment readiness.
