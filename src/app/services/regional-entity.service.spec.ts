@@ -20,9 +20,9 @@ describe('RegionalEntityService', () => {
     const re: RegionalEntity = {
       name: 'abc',
       capital: 'xyz',
-      loAltitude: 100,
-      hiAltitude: 200,
-      squareKilometers: 1000,
+      altitudeLo: 100,
+      altitudeHi: 200,
+      area: 1000,
       population: 10
     };
 

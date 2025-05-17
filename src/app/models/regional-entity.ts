@@ -3,7 +3,7 @@ export interface RegionalEntity {
   name?: string | null;
   capital?: string | null;
   population?: number | null;
-  squareKilometers?: number | null;
-  hiAltitude?: number | null;
-  loAltitude?: number | null;
+  area?: number | null;  // km^2
+  altitudeHi?: number | null; // meters
+  altitudeLo?: number | null; // meters
 }

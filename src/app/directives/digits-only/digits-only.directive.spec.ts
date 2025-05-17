@@ -26,13 +26,23 @@ describe('DigitsOnlyDirective', () => {
 
   it('should create', () => expect(spectator.component).toBeTruthy());
 
-  ['-abc1,23xyz', '!-1@2#.3', ' -  12.3   ', '-1,2.3'].forEach((value) => {
-    it(`should only allow digits for "${value}"`, () => {
+  ['abc1,23xyz', '!1@2#.3', '   12.3   ', '1,2.3'].forEach((value) => {
+    it(`should only allow negative digits for "${value}"`, () => {
       input.value = value;
       spectator.dispatchFakeEvent(input, 'input');
 
       expect(spectator.component.value).toBe('123');
       expect(input.value).toBe('123');
+    });
+  });
+
+  ['-abc1,23xyz', '!-1@2#.3', ' -  12.3   ', '-1,2.3'].forEach((value) => {
+    it(`should only allow negative digits for "${value}"`, () => {
+      input.value = value;
+      spectator.dispatchFakeEvent(input, 'input');
+
+      expect(spectator.component.value).toBe('-123');
+      expect(input.value).toBe('-123');
     });
   });
 });

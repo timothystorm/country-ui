@@ -2,8 +2,8 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
-.data-table {
-  width: 600px;
+table {
+  max-width: 1000px;
   margin: auto;
 }
 
@@ -11,14 +11,17 @@ th {
   text-align: left
 }
 
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
 .deleter {
-  color: crimson;
   font-size: 16pt;
   cursor: pointer;
 }
 
 .editor {
-  color: blue;
   font-size: 16pt;
   cursor: pointer;
 }

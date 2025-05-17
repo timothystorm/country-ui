@@ -4,32 +4,29 @@
     <table class="table table-striped m-auto">
       <thead>
       <tr>
-        <th scope="col"><!--add--></th>
-        <th scope="col"><!--edit--></th>
-        <th scope="col">ID</th>
+        <th scope="col"><!-- controls --></th>
         <th scope="col">Name</th>
         <th scope="col">Capital</th>
         <th scope="col">Population</th>
         <th scope="col">Area (km<sup>2</sup>)</th>
-        <th scope="col">Low Elevation (m)</th>
-        <th scope="col">High Elevation (m)</th>
+        <th scope="col">Lowest Elevation (m)</th>
+        <th scope="col">Highest Elevation (m)</th>
       </tr>
       </thead>
       <tbody>
         @if (reloadableRegionalEntities$ | async; as regionalEntities) {
           @for (regionalEntity of regionalEntities; track regionalEntity.name; let i = $index) {
             <tr>
-              <td *ngIf="regionalEntity.id && regionalEntity.name" class="deleter"
-                  (click)="delete(regionalEntity.id, regionalEntity.name)">🚫
+              <td *ngIf="regionalEntity.id && regionalEntity.name" class="controls">
+                <span class="deleter" (click)="delete(regionalEntity.id, regionalEntity.name)">🚫</span>
+                <span class="editor" (click)="edit(regionalEntity)">✏️</span>
               </td>
-              <td class="editor" (click)="edit(regionalEntity)">✏️</td>
-              <td>{{ regionalEntity.id }}</td>
               <td>{{ regionalEntity.name }}</td>
               <td>{{ regionalEntity.capital }}</td>
               <td>{{ regionalEntity.population | number: '1.0' }}</td>
-              <td>{{ regionalEntity.squareKilometers | number: '1.0' }}</td>
-              <td>{{ regionalEntity.loAltitude | number: '1.0' }}</td>
-              <td>{{ regionalEntity.hiAltitude | number: '1.0' }}</td>
+              <td>{{ regionalEntity.area | number: '1.0' }}</td>
+              <td>{{ regionalEntity.altitudeLo | number: '1.0' }}</td>
+              <td>{{ regionalEntity.altitudeHi | number: '1.0' }}</td>
             </tr>
           } @empty {
             <p>No results yet!</p>

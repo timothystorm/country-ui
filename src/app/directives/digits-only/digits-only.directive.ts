@@ -11,7 +11,7 @@ export class DigitsOnlyDirective {
 
   @HostListener('input', ['$event']) onInputChange(event: any) {
     const initialValue = this.el.nativeElement.value;
-    const newValue = initialValue.replace(/[^0-9]*/g, '');
+    const newValue = initialValue.replace(/[^0-9-]*/g, '');
     this.ngControl.control?.setValue(newValue, {emitEvent: false});
     if (initialValue !== this.el.nativeElement.value) {
       event.stopPropagation();
