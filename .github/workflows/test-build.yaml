@@ -27,3 +27,6 @@ jobs:
 
       - name: 🛠️ Build Angular App
         run: npm run build
+
+      - name: 🐳 Build Docker Image
+        run: docker build -t angular-ui:${{github.sha}} .
