@@ -23,7 +23,7 @@ jobs:
         run: npm ci
 
       - name: 🧪 Run Unit Tests
-        run: npm run test -- --watch=false --browsers=ChromeHeadlessCi
+        run: npm run test -- --watch=false --browsers=ChromeHeadlessCI
 
       - name: 🛠️ Build Angular App
         run: npm run build -- --configuration production
