@@ -26,28 +26,7 @@ A frontend Angular application for interacting with the Country API. This UI is 
 
 ---
 
-🐳 Running as a Dockerized NGINX App
-
-1. Build the Angular App
-
-```bash
-npm run build -- --configuration=production
-```
-
-This compiles the app into the dist/ directory.
-
-2. Build and Run the Docker Container
-
-```bash
-docker build -t country-ui .
-docker run -d -p 80:80 country-ui
-```
-
-> The app is served via NGINX on port 80 inside the container.
-
----
-
-## 🌍 Cloud Deployment
+## ☁️ Cloud Deployment
 
 This project is designed for on-demand deployment to cloud VMs with Docker:
 
