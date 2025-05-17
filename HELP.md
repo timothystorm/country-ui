@@ -1,18 +1,17 @@
 # Runners
 
-## 🐳 Running as a Dockerized NGINX App
+## 🚀 Running in a Docker container
 
 ```bash
-docker compose -f docker-compose.yaml up -d --build
+./build-network-bridge.sh && docker compose up -d --build
 ```
 
-> The app is served via NGINX on port 80 inside the container.
+> Need to create a network bridge to allow for cross container communication
+> The ui app is served via NGINX on port 80
 
-## Stop dockerized
-
-Bring down the dockerized
+## 🛑 Stop dockerized
 
 ```bash
-docker compose -f ../docker-compose.yaml down
+docker compose down
 ```
 

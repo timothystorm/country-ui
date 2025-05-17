@@ -6,6 +6,7 @@
       <tr>
         <th scope="col"><!--add--></th>
         <th scope="col"><!--edit--></th>
+        <th scope="col">ID</th>
         <th scope="col">Name</th>
         <th scope="col">Capital</th>
         <th scope="col">Population</th>
@@ -22,6 +23,7 @@
                   (click)="delete(regionalEntity.id, regionalEntity.name)">🚫
               </td>
               <td class="editor" (click)="edit(regionalEntity)">✏️</td>
+              <td>{{ regionalEntity.id }}</td>
               <td>{{ regionalEntity.name }}</td>
               <td>{{ regionalEntity.capital }}</td>
               <td>{{ regionalEntity.population | number: '1.0' }}</td>
