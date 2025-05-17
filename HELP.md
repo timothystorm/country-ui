@@ -1,5 +1,11 @@
 # Runners
 
+## 📦 Build
+
+```bash
+npm run build
+```
+
 ## 🚀 Running in a Docker container
 
 ```bash
