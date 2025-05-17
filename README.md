@@ -4,6 +4,12 @@ A frontend Angular application for interacting with the Country API. This UI is 
 
 ---
 
+## 👷Contributors
+
+- [Timothy Storm](mailto:timothystorm@gmail.com)
+
+---
+
 ## ✨ Features
 
 - Built with Angular and TypeScript
