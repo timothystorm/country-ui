@@ -12,7 +12,7 @@ repo: [country-ui](https://github.com/timothystorm/country-ui)
 
 ---
 
-## ✨ Features
+## 🧩 Features
 
 - Built with Angular and TypeScript
 - Serves a static Single Page Application (SPA) via NGINX
