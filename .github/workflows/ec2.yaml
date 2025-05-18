@@ -49,9 +49,6 @@ jobs:
           docker run -d \
             --restart unless-stopped \
             --network country-net \
-            -e SPRING_DATASOURCE_URL=${{ secrets.RDS_DATASOURCE_URL }} \
-            -e SPRING_DATASOURCE_USERNAME=${{ secrets.RDS_DATASOURCE_USERNAME }} \
-            -e SPRING_DATASOURCE_PASSWORD=${{ secrets.RDS_DATASOURCE_PASSWORD }} \
             -p 80:80 \
             --name "${{ env.UI_IMAGE_NAME }}" \
             "${{ env.UI_IMAGE_NAME }}:${{ env.UI_IMAGE_VERSION }}"
