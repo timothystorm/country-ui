@@ -40,7 +40,7 @@ jobs:
         run: |
           ssh -i key.pem -o StrictHostKeyChecking=no "${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}" << 'EOF'
           cd ~/release
-          gunzip -f "${{ env.UI_IMAGE_NAME }}".tar.gz"
+          gunzip -f "${{ env.UI_IMAGE_NAME }}.tar.gz"
 
           docker image prune -a --force --filter "until=4h"
           docker load < "${{ env.UI_IMAGE_NAME }}.tar"
