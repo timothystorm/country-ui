@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       UI_IMAGE_NAME: country-ui
+      UI_IMAGE_VERSION: ${{ github.sha }}
 
     steps:
       # only works when run in same workflow scope as actions/upload-artifact@v4 - see: release.yaml
@@ -53,5 +54,5 @@ jobs:
             -e SPRING_DATASOURCE_PASSWORD=${{ secrets.RDS_DATASOURCE_PASSWORD }} \
             -p 8080:8080 \
             --name "${{ env.UI_IMAGE_NAME }}" \
-            "${{ env.UI_IMAGE_NAME }}:${{ github.sha }}"
+            "${{ env.UI_IMAGE_NAME }}:${{ env.UI_IMAGE_VERSION }}"
           EOF
