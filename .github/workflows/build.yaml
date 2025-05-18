@@ -2,7 +2,12 @@ name: Build
 run-name: 🛠️ Build - ${{ github.actor }} 🚀
 on:
   push:
-    branches: [ "**" ]
+    branches:
+      - 'feature/**'
+      - 'bugfix/**'
+      - 'hotfix/**'
+      - 'chore/**'
+      - 'docs/**'
   pull_request:
     branches:
       - main

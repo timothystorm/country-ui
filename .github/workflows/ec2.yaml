@@ -2,6 +2,13 @@ name: Deploy
 run-name: 🚀 Deploy - ${{ github.actor }}
 on:
   workflow_call: # chainable
+  secrets:
+    EC2_USER:
+      required: true
+    EC2_HOST:
+      required: true
+    EC2_KEY:
+      required: true
 
 jobs:
   ec2:
