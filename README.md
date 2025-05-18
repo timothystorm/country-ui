@@ -1,4 +1,4 @@
-# 🌐 Country UI
+# 🌍 Country UI
 
 A frontend Angular application for interacting with the Country API. This UI is containerized and served via NGINX, and designed for seamless deployment to cloud environments like AWS EC2 and Azure Virtual Machines.
 
