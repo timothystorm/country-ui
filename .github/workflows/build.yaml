@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       UI_IMAGE_NAME: country-ui
+      UI_IMAGE_VERSION: ${{ github.sha }}
 
     steps:
       - name: 🧼 Cleanup
@@ -47,11 +48,11 @@ jobs:
         run: |
           docker buildx build \
           --platform linux/arm64 \
-          -t "${{ env.UI_IMAGE_NAME }}:latest" \
+          -t "${{ env.UI_IMAGE_NAME }}:${{ env.UI_IMAGE_VERSION }}" \
           --output type=docker .
 
       - name: 📦 Package image
-        run: docker save "${{ env.UI_IMAGE_NAME }}:latest" | gzip > "${{ env.UI_IMAGE_NAME }}.tar.gz"
+        run: docker save "${{ env.UI_IMAGE_NAME }}:${{ env.UI_IMAGE_VERSION }}" | gzip > "${{ env.UI_IMAGE_NAME }}.tar.gz"
 
       - name: ⬆️ Store image artifact
         uses: actions/upload-artifact@v4
