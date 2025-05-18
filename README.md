@@ -62,7 +62,6 @@ This project is designed for on-demand deployment to cloud VMs with Docker:
 
 ## 🚧 Future Enhancements
 
-- Add automated deployment via GitHub Actions
 - Add integration testing
 - Support environment variables at runtime with JS-based dynamic config injection
 - HTTPS via Let’s Encrypt on the VM
