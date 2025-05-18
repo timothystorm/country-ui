@@ -16,8 +16,8 @@ A frontend Angular application for interacting with the Country API. This UI is 
 - Serves a static Single Page Application (SPA) via NGINX
 - Consumes the Spring Boot Country API backend
 - Fully Dockerized for local development and cloud deployment
-- Environment-based base API URL configuration
-- Reverse proxies API calls for CORS security
+- Proxied API URL configuration for local and production parity
+- Reverse proxy with NGINX into API for the smallest possible surface area
 
 ---
 
@@ -58,7 +58,7 @@ This project is designed for on-demand deployment to cloud VMs with Docker:
 
 ---
 
-## 🔭 Future Enhancements
+## 🚧 Future Enhancements
 
 - Add automated deployment via GitHub Actions
 - Add integration testing

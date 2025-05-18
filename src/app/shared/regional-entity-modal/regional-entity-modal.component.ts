@@ -27,16 +27,16 @@ export class RegionalEntityModalComponent implements OnInit, AfterViewInit {
   capitalControl = new FormControl('', [Validators.required]);
   populationControl = new FormControl<number | null>(null, [Validators.required]);
   areaControl = new FormControl<number | null>(null, [Validators.required]);
-  hiAltitude = new FormControl<number | null>(null, [Validators.required]);
-  loAltitude = new FormControl<number | null>(null, [Validators.required]);
+  altitudeHiControl = new FormControl<number | null>(null, [Validators.required]);
+  altitudeLoControl = new FormControl<number | null>(null, [Validators.required]);
   form = new FormGroup({
     id: this.idControl,
     name: this.nameControl,
     capital: this.capitalControl,
     population: this.populationControl,
-    squareKilometers: this.areaControl,
-    hiAltitude: this.hiAltitude,
-    loAltitude: this.loAltitude,
+    area: this.areaControl,
+    altitudeHi: this.altitudeHiControl,
+    altitudeLo: this.altitudeLoControl,
   });
 
   ngOnInit() {

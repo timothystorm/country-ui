@@ -8,9 +8,9 @@ services:
     ports:
       - "80:80"
     networks:
-      - app-network
+      - country-network
 
 # network bridge
 networks:
-  app-network:
+  country-network:
     external: true
