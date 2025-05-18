@@ -1,16 +1,15 @@
-name: country-ui
 services:
   angular:
-    container_name: angular
+    container_name: country-ui
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "80:80"
     networks:
-      - country-network
+      - country-net
 
 # network bridge
 networks:
-  country-network:
+  country-net:
     external: true

@@ -4,7 +4,7 @@
 set -e
 
 # must match the network name of the api
-NETWORK_NAME="${1:-country-network}"
+NETWORK_NAME="${1:-country-net}"
 
 if ! docker network inspect "$NETWORK_NAME" >/dev/null 2>&1; then
   echo "🔌 Creating Docker network: $NETWORK_NAME"

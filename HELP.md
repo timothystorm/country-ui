@@ -13,7 +13,7 @@ Only needs to be built 1x.
 > Need to create a network bridge to allow for cross container communication
 
 ```bash
-./build-network-bridge.sh country-network
+./build-network-bridge.sh country-net
 ```
 
 ### 3. 🚀 Build and run container
@@ -34,5 +34,5 @@ docker compose down
 ### 5. 🪓 Stop network bridge (optional)
 
 ```bash
-docker network rm country-network
+docker network rm country-net
 ```

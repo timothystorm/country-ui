@@ -1,0 +1,55 @@
+name: Build
+run-name: 🛠️ Build - ${{ github.actor }} 🚀
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches:
+      - main
+      - 'release/**'
+  workflow_dispatch: # allow manual triggering
+  workflow_call: # chainable
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      UI_IMAGE_NAME: country-ui
+
+    steps:
+      - name: 🧼 Cleanup
+        run: rm -rf dist/
+
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🧱 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: ❇️ Install Dependencies
+        run: npm ci
+
+      - name: 🧪 Run Unit Tests
+        run: npm run test -- --watch=false --browsers=ChromeHeadlessCI
+
+      - name: 🛠️ Build Angular App
+        run: npm run build
+
+      # build multi-environment (multi-manifest) image: linux/arm64, x86_64/amd64
+      - name: 🐳 Build image
+        run: |
+          docker buildx build \
+          --platform linux/arm64 \
+          -t "${{ env.UI_IMAGE_NAME }}:latest" \
+          --output type=docker .
+
+      - name: 📦 Package image
+        run: docker save "${{ env.UI_IMAGE_NAME }}:latest" | gzip > "${{ env.API_IMAGE_NAME }}.tar.gz"
+
+      - name: ⬆️ Store image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: "${{ env.UI_IMAGE_NAME }}"
+          path: ${{ env.API_IMAGE_NAME }}.tar.gz

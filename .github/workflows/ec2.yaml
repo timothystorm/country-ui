@@ -1,0 +1,50 @@
+name: Deploy
+run-name: 🚀 Deploy - ${{ github.actor }}
+on:
+  workflow_call: # chainable
+
+jobs:
+  ec2:
+    runs-on: ubuntu-latest
+    env:
+      UI_IMAGE_NAME: country-ui
+
+    steps:
+      # only works when run in same workflow scope as actions/upload-artifact@v4 - see: release.yaml
+      - name: ⬇️ Download image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: "${{ env.UI_IMAGE_NAME }}"
+
+      - name: 🔐 Setup SSH key
+        run: |
+          echo "${{ secrets.EC2_KEY }}" > key.pem
+          chmod 600 key.pem
+      - name: Debug available environment
+        run: printenv | sort
+
+      - name: 📤 Copy to EC2
+        run: |
+          scp -i key.pem -o StrictHostKeyChecking=no \
+          "${{ env.UI_IMAGE_NAME }}".tar.gz" \
+          "${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:~/release/"
+
+      - name: 🚀 Deploy Container on EC2
+        run: |
+          ssh -i key.pem -o StrictHostKeyChecking=no "${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}" << 'EOF'
+          cd ~/release
+          gunzip -f "${{ env.UI_IMAGE_NAME }}".tar.gz"
+
+          docker image prune -a --force --filter "until=4h"
+          docker load < "${{ env.UI_IMAGE_NAME }}.tar"
+          docker stop "${{ env.UI_IMAGE_NAME }}" || true && docker rm "${{ env.UI_IMAGE_NAME }}" || true
+          docker run -d \
+            --restart unless-stopped \
+            --network country-net \
+            -e SPRING_DATASOURCE_URL=${{ secrets.RDS_DATASOURCE_URL }} \
+            -e SPRING_DATASOURCE_USERNAME=${{ secrets.RDS_DATASOURCE_USERNAME }} \
+            -e SPRING_DATASOURCE_PASSWORD=${{ secrets.RDS_DATASOURCE_PASSWORD }} \
+            -p 8080:8080 \
+            --name "${{ env.UI_IMAGE_NAME }}" \
+            "${{ env.UI_IMAGE_NAME }}:${{ github.sha }}"
+          EOF
