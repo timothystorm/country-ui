@@ -60,6 +60,19 @@ This project is designed for on-demand deployment to cloud VMs with Docker:
 
 ---
 
+## 🤝 Conventions & Standards
+
+- 🪾 [Trunk based development](https://trunkbaseddevelopment.com/)
+  - short lived branches - no more than a week
+- ✅ 90% Code coverage minimum to PR into main
+- 🌵 [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
+- 🪟 [No broken windows](https://blog.codinghorror.com/the-broken-window-theory/)
+  - treat warning like errors
+  - all errors are treated as critical and to be fixed immediately
+- 🩹 Refactoring is expected and is NOT a dirty word
+
+---
+
 ## 🚧 Future Enhancements
 
 - Add integration testing
